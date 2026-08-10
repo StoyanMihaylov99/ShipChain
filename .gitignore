@@ -1,0 +1,24 @@
+### IDE ###
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.classpath
+.project
+.settings/
+
+### OS ###
+.DS_Store
+
+### Build output (services each have their own too) ###
+target/
+build/
+
+### Logs ###
+*.log
+
+### Local env / secrets ###
+.env
+application-local.yml
+application-local.properties

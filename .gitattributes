@@ -1,0 +1,14 @@
+# Default: normalize line endings to LF in the repo, let Git convert on checkout as needed.
+* text=auto eol=lf
+
+# Maven wrapper: mvnw is a POSIX shell script and must stay LF, mvnw.cmd is a
+# Windows batch file and must stay CRLF, regardless of core.autocrlf.
+mvnw text eol=lf
+mvnw.cmd text eol=crlf
+
+# Binary files: never touch line endings.
+*.jar binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
