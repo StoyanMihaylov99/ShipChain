@@ -11,6 +11,21 @@ jobs:
     name: Payment Build & Test
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: payment_db
+          POSTGRES_USER: payment
+          POSTGRES_PASSWORD: payment
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U payment -d payment_db"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=10
+
     steps:
       - uses: actions/checkout@v4
 
@@ -38,3 +53,7 @@ jobs:
         if: steps.changes.outputs.service == 'true'
         run: ./mvnw clean verify
         working-directory: services/payment
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/payment_db
+          SPRING_DATASOURCE_USERNAME: payment
+          SPRING_DATASOURCE_PASSWORD: payment
