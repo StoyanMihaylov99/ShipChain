@@ -1,0 +1,39 @@
+name: Gateway Service CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for relevant changes
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            service:
+              - 'services/gateway/**'
+
+      - name: Make Maven wrapper executable
+        if: steps.changes.outputs.service == 'true'
+        run: chmod +x services/gateway/mvnw
+
+      - name: Set up JDK 21
+        if: steps.changes.outputs.service == 'true'
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and Test with Maven
+        if: steps.changes.outputs.service == 'true'
+        run: ./mvnw clean verify
+        working-directory: services/gateway
