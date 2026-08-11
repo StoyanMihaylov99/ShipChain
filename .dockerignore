@@ -1,0 +1,33 @@
+### VCS ###
+.git
+.gitattributes
+.gitignore
+
+### IDE ###
+.idea
+*.iml
+*.iws
+*.ipr
+.vscode
+
+### OS ###
+.DS_Store
+
+### Build output ###
+**/target/
+**/build/
+
+### Maven wrapper (Docker build uses the maven:3.9 image's own mvn, not ./mvnw) ###
+**/.mvn/
+
+### Logs ###
+*.log
+
+### Local env / secrets ###
+.env
+application-local.yml
+application-local.properties
+
+### Docs ###
+README.md
+LICENSE
